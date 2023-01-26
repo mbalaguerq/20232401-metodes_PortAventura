@@ -10,6 +10,8 @@ namespace _20232401_metodes_PortAventura
     {
         static void Main(string[] args)
         {
+            Aplicacio app= new Aplicacio();
+            app.Inici();
         }
     }
 }
