@@ -52,7 +52,7 @@ namespace _20232401_metodes_PortAventura
             switch (opcio)
             {
                 case "1":
-                    ;
+                    afegirAlumnes(alumnes);
                     break;
                 case "0":
                     salir = true;
@@ -64,8 +64,8 @@ namespace _20232401_metodes_PortAventura
 
         void mostrarMenu()
         {
-            Console.WriteLine("1.  ");
-            Console.WriteLine("2. ");
+            Console.WriteLine("1. Afegir Alumnes");
+            Console.WriteLine("2. Afegir Inscripcions");
             Console.WriteLine("3. ");
             Console.WriteLine("4. ");
             Console.WriteLine("5. ");
@@ -100,3 +100,26 @@ namespace _20232401_metodes_PortAventura
     }
 }   
 
+/* 1.Añadir alumnos(1, 5 puntos)
+Se pedirán los datos Nif y Nombre, se comprobará si este alumno ya existe en el array «alumnos» y si no está, 
+pues se añadirá en el array, en caso de que exista debe mostrar el mensaje 
+"Este alumno ya existe, su nombre es: Ramon Lopez"
+
+2. Añadir inscripción (7 puntos)
+-Se pidiera el nif del alumno que se quiere inscribir a una salida
+- se comprobará si existe en el array de «alumnos», en caso afirmativo mostrará el nombre del alumno, (*)
+- Después se pedirá el código de la actividad a la que se quiere apuntar, se comprobará si esa actividad existe, 
+en caso afirmativo mostrará el nombre de la actividad y de lo contrario mostrará un mensaje indicando que la actividad 
+no existe.
+- Si el Nif y la actividad existen, componer si este alumno con esta actividad ya existe en el array inscripciones, 
+en caso afirmativo debe mostrar un mensaje indicando que este alumno ya está inscrito en esta actividad
+- de lo contrario el programa debe preguntar si los datos son correctos, en caso afirmativo añadir en el array 
+inscripciones una fila con el Nif y Actividad.
+
+(*) Opcionalmente(1 punto) si el alumno no existe, preguntar si se quiere dar de alta, en caso afirmativo, 
+pedir el nombre y añadirlo al array "alumnos"
+
+3. Lista de inscripciones de una actividad (1,5 puntos)
+Debe pedir el código de una actividad, comprobar si existe en el array "actividades", en caso afirmativo debe mostrar 
+el nombre de la actividad y a continuación mostrar el nif y el nombre de todos los alumnos inscritos en la actividad
+*/
