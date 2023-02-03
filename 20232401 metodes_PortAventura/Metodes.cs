@@ -36,12 +36,12 @@ namespace _20232401_metodes_PortAventura
             }
         }
 
-        public void novaInscripció(String[,] inscripcions, String[,] alumnes, String[,] activitats)
+        public void novaInscripció(String[,] inscripcions, String[,] alumnes, String[] activitats)
         {
-            string nif;
-            string nom;
-            int fila;
-            int filalliure;
+            string nif, nom;
+            int fila, filaLliure;
+            string opcio;
+            
 
             nif = DemanaAlumne();
             fila = existsNif(nif, alumnes);
@@ -50,13 +50,58 @@ namespace _20232401_metodes_PortAventura
             {
                
                 Console.WriteLine("Alumne" + alumnes[fila, ALU_NOM]);
-                Console.ReadLine();
+                Console.WriteLine("Introdueix el codi de la activitat a realitzar: ");
+                Console.WriteLine("1. Sortida a esquiar");
+                Console.WriteLine("2. Sortida a Port Aventura");
+                Console.WriteLine("3. Sortida a Fira Games World");
+                opcio= (Console.ReadLine());
+
+            }
+
+            
+
+
+           /* 2.Añadir inscripción(7 puntos)
+- Se pidiera el nif del alumno que se quiere inscribir a una salida
+-se comprobará si existe en el array de «alumnos», en caso afirmativo mostrará el nombre del alumno, (*)
+-Después se pedirá el código de la actividad a la que se quiere apuntar, se comprobará si esa actividad existe,
+en caso afirmativo mostrará el nombre de la actividad y de lo contrario mostrará un mensaje indicando que la actividad
+no existe.
+- Si el Nif y la actividad existen, componer si este alumno con esta actividad ya existe en el array inscripciones,
+en caso afirmativo debe mostrar un mensaje indicando que este alumno ya está inscrito en esta actividad
+-de lo contrario el programa debe preguntar si los datos son correctos, en caso afirmativo añadir en el array
+inscripciones una fila con el Nif y Actividad.*/
+        }
+        public int GetActivitat(String[] activitats, string opcio)
+        {
+            bool encontrado = false;
+            int i = 0;
+            if (opcio.Equals ("1"))
+            {
+                 opcio = "1, Salida a esquiar";
+            }
+            if (opcio.Equals("2"))
+            {
+                opcio = "2, Salida a Port Aventura";
+            }
+            if (opcio.Equals("3"))
+            {
+                opcio = "3,Feria Games World";
+            }
+
+            while (i < activitats.Length & !encontrado)
+            {
+                if()
+                {
+
+                }
+                else
+                {
+                    i++;
+                }
             }
 
         }
-
-
-
         public string DemanaAlumne()
         {
             string nif;
