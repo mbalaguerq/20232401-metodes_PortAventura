@@ -14,11 +14,14 @@ namespace _20232401_metodes_PortAventura
     {
         public void Inici()
         {
+            Metodes metode = new Metodes();
+            metode.afegirAlumnes();
+
 
             String[,] alumnes = DadesAlumnes();
             String[,] inscripcions = DadesInscripcions();
             String[,] activitats = DadesActivitats();
-
+            
 
             bool salir = false;
             string opcio;
@@ -90,11 +93,13 @@ namespace _20232401_metodes_PortAventura
             String[,] inscripcions = new String[50, 2];
             return inscripcions;
         }
-        string[] DadesActivitats()
+        string[,] DadesActivitats()
         {
             //codi activitat/nom activitat
-            String[] activitats =
-                    { "1, Salida a esquiar", "2, Salida a Port Aventura", "3,Feria Games World" } ;
+            String[,] activitats = {
+                     { "1" }, {"Salida a esquiar" },
+                     { "2" }, {"Salida a Port Aventura" },
+                     { "3" }, {"Feria Games World" } };
 
             return activitats;
         }

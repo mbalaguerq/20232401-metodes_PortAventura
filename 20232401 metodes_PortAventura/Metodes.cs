@@ -10,7 +10,7 @@ namespace _20232401_metodes_PortAventura
 {
     internal class Metodes
     {
-        public void afegirAlumnes(String[,] alumnes)
+        public void afegirAlumnes(String[,] alumnes) //Opcio1
         {
             string nif;
             string nom;
@@ -36,30 +36,36 @@ namespace _20232401_metodes_PortAventura
             }
         }
 
-        public void novaInscripció(String[,] inscripcions, String[,] alumnes, String[] activitats)
+        public void novaInscripció(String[,] inscripcions, String[,] alumnes, String[,] activitats)
         {
             string nif, nom;
             int fila, filaLliure;
             string opcio;
-            
+            string acti;
+
 
             nif = DemanaAlumne();
             fila = existsNif(nif, alumnes);
+            
 
             if (fila != REGISTRE_INEXISTENT)
             {
-               
                 Console.WriteLine("Alumne" + alumnes[fila, ALU_NOM]);
                 Console.WriteLine("Introdueix el codi de la activitat a realitzar: ");
                 Console.WriteLine("1. Sortida a esquiar");
                 Console.WriteLine("2. Sortida a Port Aventura");
                 Console.WriteLine("3. Sortida a Fira Games World");
-                opcio= (Console.ReadLine());
+                opcio = (Console.ReadLine());
+                acti = GetActivitat(activitats, opcio) ;
+
+                
+
+                
 
             }
 
-            
 
+        }
 
            /* 2.Añadir inscripción(7 puntos)
 - Se pidiera el nif del alumno que se quiere inscribir a una salida
@@ -71,44 +77,41 @@ no existe.
 en caso afirmativo debe mostrar un mensaje indicando que este alumno ya está inscrito en esta actividad
 -de lo contrario el programa debe preguntar si los datos son correctos, en caso afirmativo añadir en el array
 inscripciones una fila con el Nif y Actividad.*/
-        }
-        public int GetActivitat(String[] activitats, string opcio)
+        
+        public string GetActivitat(String[,] activitats, string opcio)
         {
             bool encontrado = false;
             int i = 0;
-            if (opcio.Equals ("1"))
-            {
-                 opcio = "1, Salida a esquiar";
-            }
-            if (opcio.Equals("2"))
-            {
-                opcio = "2, Salida a Port Aventura";
-            }
-            if (opcio.Equals("3"))
-            {
-                opcio = "3,Feria Games World";
-            }
 
-            while (i < activitats.Length & !encontrado)
+            while (i < activitats.GetLength(0) & !encontrado)
             {
-                if()
+                if(activitats[i, ACT].Equals (opcio))
                 {
-
+                    encontrado = true;
                 }
                 else
                 {
                     i++;
                 }
             }
+            if(encontrado)
+            {
+                return activitats[i, ACT];
+            }
+            else
+            {
+                return null;
+            }
 
-        }
+
+        }//busca act Array act retonra act
         public string DemanaAlumne()
         {
             string nif;
-            Console.Write("Introdueix Dni del CLient: ");
+            Console.Write("Introdueix Dni del alumne: ");
             nif = Console.ReadLine();
             return nif;
-        }
+        }//Demana Dni alumne, retorna Dni
         int existsNif(String nif, String[,] alumnes)
         {
             bool encontrado = false;
@@ -134,8 +137,8 @@ inscripciones una fila con el Nif y Actividad.*/
             {
                 return REGISTRE_INEXISTENT;
             }
-        }
-        int getNewFilaAlumnes(String[,] alumnes)
+        }//busca nif array alumnes
+        public int getNewFilaAlumnes(String[,] alumnes)
         {
             bool encontrado = false;
             int filaLliure = 0;
@@ -158,10 +161,12 @@ inscripciones una fila con el Nif y Actividad.*/
             {
                 return REGISTRE_INEXISTENT;
             }
-        }
+        }//busca fila lliure Array Alumnes Retorna fila lliure
 
         const int REGISTRE_INEXISTENT = -1;
         const int ALU_NIF = 0;
         const int ALU_NOM = 1;
+        const int ACT = 1;
+        const int NUM_ACT = 0;
     }
 }
