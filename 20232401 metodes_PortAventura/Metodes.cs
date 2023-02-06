@@ -39,16 +39,17 @@ namespace _20232401_metodes_PortAventura
         public void novaInscripció(String[,] inscripcions, String[,] alumnes, String[,] activitats)
         {
             string nif, nom;
-            int fila, filaLliure;
+            int fila, filaLliure; 
             string opcio;
             string acti;
+            string resposta;
 
 
             nif = DemanaAlumne();
             fila = existsNif(nif, alumnes);
             
 
-            if (fila != REGISTRE_INEXISTENT)
+            if (fila != REGISTRE_INEXISTENT)//si l'alumne existeix
             {
                 Console.WriteLine("Alumne" + alumnes[fila, ALU_NOM]);
                 Console.WriteLine("Introdueix el codi de la activitat a realitzar: ");
@@ -57,14 +58,69 @@ namespace _20232401_metodes_PortAventura
                 Console.WriteLine("3. Sortida a Fira Games World");
                 opcio = (Console.ReadLine());
                 acti = GetActivitat(activitats, opcio) ;
-
                 
+                if(acti != null )//si la activitat a realitzar existeix
+                {
+                    Console.WriteLine("Activitat disponible: " + acti);
 
-                
+                    fila = 0;
+                    fila = GetInscripcions(inscripcions, nif);
+
+                    if (fila!= REGISTRE_INEXISTENT)//Si ja està registrat a activitats
+                    {
+                        Console.WriteLine("Aquest alumne ja està inscrit a l'activitat " + activitats[fila, INS_ACTI]);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Indiqui si les dades són correctes: ");
+                        Console.WriteLine("DNI: " + nif);
+                        Console.WriteLine("Activitat: " + acti);
+                        Console.Write("S/N :");
+                        resposta =  Console.ReadLine();
+                        resposta.ToLower();
+
+                        if(resposta == "s")//si les dades son correctes
+                        {
+                            filaLliure = 0;
+                            filaLliure = GetNewFilaActivitats(activitats);
+                            {
+                                if (filaLliure != REGISTRE_INEXISTENT) //Si hi ha una fila lliure
+                                {
+                                    nif = activitats[filaLliure, INS_NOM];
+                                    acti = activitats[filaLliure, INS_ACTI];
+
+
+                                    //llistem array activitats
+                                    for (int i = 0; i < activitats.GetLength(0); i++)
+                                    {
+                                        for (int j = 0; j < activitats.GetLength(1); j++)
+                                        {
+                                            Console.Write(activitats[i, j] + "\t");
+                                        }
+                                    }
+                                }
+                                else//Si no hi ha fila lliurel'array està plè
+                                {
+                                    Console.WriteLine("Incidència. Avisi al tècnic");
+                                    Console.WriteLine();
+                                }
+                            }
+                        }
+
+
+
+                    }
+
+
+                }
+                else //si la activitat no existeix
+                {
+                    Console.WriteLine("Activitat no disponible ");
+                    Console.WriteLine();
+                }//Mirar com fer que retorni al if per que triin una altre activitat
+
 
             }
-
-
         }
 
            /* 2.Añadir inscripción(7 puntos)
@@ -73,7 +129,7 @@ namespace _20232401_metodes_PortAventura
 -Después se pedirá el código de la actividad a la que se quiere apuntar, se comprobará si esa actividad existe,
 en caso afirmativo mostrará el nombre de la actividad y de lo contrario mostrará un mensaje indicando que la actividad
 no existe.
-- Si el Nif y la actividad existen, componer si este alumno con esta actividad ya existe en el array inscripciones,
+- Si el Nif y la actividad existen, comprobar si este alumno con esta actividad ya existe en el array inscripciones,
 en caso afirmativo debe mostrar un mensaje indicando que este alumno ya está inscrito en esta actividad
 -de lo contrario el programa debe preguntar si los datos son correctos, en caso afirmativo añadir en el array
 inscripciones una fila con el Nif y Actividad.*/
@@ -102,9 +158,35 @@ inscripciones una fila con el Nif y Actividad.*/
             {
                 return null;
             }
-
-
         }//busca act Array act retonra act
+
+        public int GetInscripcions(String[,] inscripcions, string nif)
+        {
+            bool encontrado = false;
+            int i = 0;
+
+            while (i < inscripcions.GetLength(0) & !encontrado)
+            {
+                if (inscripcions[i, INS_NOM].Equals(nif))
+                {
+                    encontrado = true;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            if (encontrado)
+            {
+                return i;
+            }
+            else
+            {
+                return REGISTRE_INEXISTENT;
+            }
+        }
+
+
         public string DemanaAlumne()
         {
             string nif;
@@ -163,10 +245,37 @@ inscripciones una fila con el Nif y Actividad.*/
             }
         }//busca fila lliure Array Alumnes Retorna fila lliure
 
+        public int GetNewFilaActivitats(String[,] activitats)
+        {
+            bool encontrado = false;
+            int filaLliure = 0;
+            while (filaLliure < activitats.GetLength(0) & !encontrado)
+            {
+                if (activitats[filaLliure, ALU_NIF].Equals(""))
+                {
+                    encontrado = true;
+                }
+                else
+                {
+                    filaLliure++;
+                }
+            }
+            if (encontrado)
+            {
+                return filaLliure;
+            }
+            else
+            {
+                return REGISTRE_INEXISTENT;
+            }
+        }//busca fila lliure Array Alumnes Retorna fila lliure
+
         const int REGISTRE_INEXISTENT = -1;
         const int ALU_NIF = 0;
         const int ALU_NOM = 1;
         const int ACT = 1;
         const int NUM_ACT = 0;
+        const int INS_NOM = 0;
+        const int INS_ACTI = 1;
     }
 }
