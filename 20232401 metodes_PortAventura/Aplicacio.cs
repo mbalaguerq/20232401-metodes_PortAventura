@@ -57,6 +57,9 @@ namespace _20232401_metodes_PortAventura
                 case "1":
                     afegirAlumnes(alumnes);
                     break;
+                    case "2":
+                    novaInscripcio(alumnes, inscripcions, activitats);
+                    break;
                 case "0":
                     salir = true;
                     break;
