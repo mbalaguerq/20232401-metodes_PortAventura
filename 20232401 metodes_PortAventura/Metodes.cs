@@ -22,7 +22,7 @@ namespace _20232401_metodes_PortAventura
             Console.Write("Nom: ");
             nom = Console.ReadLine();
             fila = existsNif(nif, alumnes);
-            filalliure = getNewFilaAlumnes(alumnes);
+            filalliure = GetNewFilaAlumnes(alumnes);
 
             if (fila != REGISTRE_INEXISTENT)
             {
@@ -44,14 +44,11 @@ namespace _20232401_metodes_PortAventura
             string opcio, acti, resposta;
             bool actiExist = false;
 
-
-
             nif = DemanaAlumne();
             fila = existsNif(nif, alumnes);
 
             do
             {
-
                 if (fila != REGISTRE_INEXISTENT)//si l'alumne existeix
                 {
                     Console.WriteLine("Alumne" + alumnes[fila, ALU_NOM]);
@@ -70,9 +67,7 @@ namespace _20232401_metodes_PortAventura
                     if (acti != null)//si la activitat a realitzar existeix
                     {
                         Console.WriteLine("Activitat disponible: " + acti);
-
-                        
-
+              
                         fila = 0;
                         fila = GetInscripcions(inscripcions, nif);
 
@@ -242,7 +237,7 @@ namespace _20232401_metodes_PortAventura
             int filaLliure = 0;
             while (filaLliure < alumnes.GetLength(0) & !encontrado)
             {
-                if (alumnes[filaLliure, ALU_NIF].Equals(""))
+                if (alumnes[filaLliure, ALU_NIF] == null)
                 {
                     encontrado = true;
                 }

@@ -12,10 +12,11 @@ namespace _20232401_metodes_PortAventura
 {
     internal class Aplicacio
     {
+        Metodes metode = new Metodes();
         public void Inici()
         {
-            Metodes metode = new Metodes();
-            metode.afegirAlumnes();
+            
+           
 
 
             String[,] alumnes = DadesAlumnes();
@@ -55,10 +56,10 @@ namespace _20232401_metodes_PortAventura
             switch (opcio)
             {
                 case "1":
-                    afegirAlumnes(alumnes);
+                    metode.afegirAlumnes(alumnes);
                     break;
                     case "2":
-                    novaInscripcio(alumnes, inscripcions, activitats);
+                    metode.novaInscripció(alumnes, inscripcions, activitats);
                     break;
                 case "0":
                     salir = true;
