@@ -35,7 +35,19 @@ namespace _20232401_metodes_PortAventura
                 alumnes[filalliure, ALU_NIF] = nif;
                 alumnes[filalliure, ALU_NOM] = nom;
             }
+            Console.WriteLine("NIF\t\t " + "NOM\t");
+
+            for (int i = 0; i < alumnes.GetLength(0); i++)
+            {
+                if (alumnes[i, ALU_NIF] != null)
+                {
+                    Console.Write(alumnes[i, ALU_NIF] + "\t" + alumnes[i, ALU_NOM] + "\n");
+                }
+            }
+            Console.WriteLine();
+
         }
+
 
         public void novaInscripció(String[,] inscripcions, String[,] alumnes, String[,] activitats)//opció 2
         {
@@ -46,12 +58,11 @@ namespace _20232401_metodes_PortAventura
 
             nif = DemanaAlumne();
             fila = existsNif(nif, alumnes);
-
             do
             {
                 if (fila != REGISTRE_INEXISTENT)//si l'alumne existeix
                 {
-                    Console.WriteLine("Alumne" + alumnes[fila, ALU_NOM]);
+                    Console.WriteLine("Alumne: " + alumnes[fila, ALU_NOM]);
                     Console.WriteLine("Introdueix el codi de la activitat a realitzar: ");
                     Console.WriteLine("1. Sortida a esquiar");
                     Console.WriteLine("2. Sortida a Port Aventura");
@@ -64,10 +75,10 @@ namespace _20232401_metodes_PortAventura
                     Console.WriteLine();
                     acti = GetActivitat(activitats, opcio);
 
-                    if (acti != null)//si la activitat a realitzar existeix
+                    if (!acti.Equals(""))//si la activitat a realitzar existeix
                     {
                         Console.WriteLine("Activitat disponible: " + acti);
-              
+
                         fila = 0;
                         fila = GetInscripcions(inscripcions, nif);
 
@@ -87,19 +98,19 @@ namespace _20232401_metodes_PortAventura
                             if (resposta == "s")//si les dades son correctes
                             {
                                 filaLliure = 0;
-                                filaLliure = GetNewFilaActivitats(activitats);
+                                filaLliure = GetNewFilaInscripcions(inscripcions);
                                 {
                                     if (filaLliure != REGISTRE_INEXISTENT) //Si hi ha una fila lliure
                                     {
-                                        nif = activitats[filaLliure, INS_NOM];
-                                        acti = activitats[filaLliure, INS_ACTI];
+                                        nif = inscripcions[filaLliure, INS_NOM];
+                                        acti = inscripcions[filaLliure, INS_ACTI];
 
                                         //llistem array activitats
-                                        for (int i = 0; i < activitats.GetLength(0); i++)
+                                        for (int i = 0; i < inscripcions.GetLength(0); i++)
                                         {
-                                            for (int j = 0; j < activitats.GetLength(1); j++)
+                                            for (int j = 0; j < inscripcions.GetLength(1); j++)
                                             {
-                                                Console.Write(activitats[i, j] + "\t");
+                                                Console.Write(inscripcions[i, j] + "\t");
                                             }
                                         }
                                     }
@@ -132,7 +143,7 @@ namespace _20232401_metodes_PortAventura
 
                         }
                     }
-                } 
+                }
 
             } while (!actiExist);
         }
@@ -155,7 +166,7 @@ namespace _20232401_metodes_PortAventura
 
             while (i < activitats.GetLength(0) & !encontrado)
             {
-                if (activitats[i, ACT].Equals(opcio))
+                if (activitats[i, NUM_ACT].Equals(opcio))
                 {
                     encontrado = true;
                 }
@@ -166,7 +177,7 @@ namespace _20232401_metodes_PortAventura
             }
             if (encontrado)
             {
-                return activitats[i, ACT];
+                return activitats[i, NUM_ACT];
             }
             else
             {
@@ -255,13 +266,13 @@ namespace _20232401_metodes_PortAventura
                 return REGISTRE_INEXISTENT;
             }
         }//busca fila lliure Array Alumnes Retorna fila lliure
-        public int GetNewFilaActivitats(String[,] activitats)
+        public int GetNewFilaInscripcions(String[,] inscripcions)
         {
             bool encontrado = false;
             int filaLliure = 0;
-            while (filaLliure < activitats.GetLength(0) & !encontrado)
+            while (filaLliure < inscripcions.GetLength(0) & !encontrado)
             {
-                if (activitats[filaLliure, ALU_NIF].Equals(""))
+                if (inscripcions[filaLliure, ALU_NIF] == null)
                 {
                     encontrado = true;
                 }
@@ -277,35 +288,7 @@ namespace _20232401_metodes_PortAventura
             else
             {
                 return REGISTRE_INEXISTENT;
-            }
-            //busca fila lliure Array Alumnes Retorna fila lliure
-
-
-        }
-        public int GetnewFilaAlumnes(String[,] alumnes)
-        {
-            bool encontrado = false;
-            int filaLliure = 0;
-
-            while (filaLliure < alumnes.GetLength(0) & !encontrado)
-            {
-                if (alumnes[filaLliure, ALU_NIF].Equals(""))
-                {
-                    encontrado = true;
-                }
-                else
-                {
-                    filaLliure++;
-                }
-            }
-            if (encontrado)
-            {
-                return filaLliure;
-            }
-            else
-            {
-                return REGISTRE_INEXISTENT;
-            }
+            } //busca fila lliure Array Iniscripcions Retorna fila lliure
         }
 
         const int REGISTRE_INEXISTENT = -1;

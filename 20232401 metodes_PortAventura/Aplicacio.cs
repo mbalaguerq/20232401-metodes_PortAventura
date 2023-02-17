@@ -15,14 +15,9 @@ namespace _20232401_metodes_PortAventura
         Metodes metode = new Metodes();
         public void Inici()
         {
-            
-           
-
-
             String[,] alumnes = DadesAlumnes();
             String[,] inscripcions = DadesInscripcions();
-            String[,] activitats = DadesActivitats();
-            
+            String[,] activitats = DadesActivitats();    
 
             bool salir = false;
             string opcio;
@@ -35,9 +30,7 @@ namespace _20232401_metodes_PortAventura
 
             } while (!salir);
             Console.WriteLine();
-
         }
-
         string DemanarOpcioMenu()
         {
             string opcio;
@@ -48,8 +41,6 @@ namespace _20232401_metodes_PortAventura
             } while (!"0123456789".Contains(opcio));
             return opcio;
         }
-
-
         bool ExecutarMenu(String[,] alumnes, String[,] inscripcions, String[,] activitats, string opcio)
         {
             bool salir = false;
@@ -82,9 +73,6 @@ namespace _20232401_metodes_PortAventura
             Console.WriteLine("9. ");
             Console.WriteLine("0. Sortir");
         }
-
-
-
         string[,] DadesAlumnes()
         {
             //nif/nom
@@ -103,7 +91,7 @@ namespace _20232401_metodes_PortAventura
             String[,] activitats = {
                      { "1" }, {"Salida a esquiar" },
                      { "2" }, {"Salida a Port Aventura" },
-                     { "3" }, {"Feria Games World" } };
+                     { "3" }, {"Feria Games World" },};
 
             return activitats;
         }
