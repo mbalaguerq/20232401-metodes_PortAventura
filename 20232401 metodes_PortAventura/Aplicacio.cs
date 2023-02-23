@@ -52,6 +52,9 @@ namespace _20232401_metodes_PortAventura
                     case "2":
                     metode.novaInscripció(alumnes, inscripcions, activitats);
                     break;
+                    case "3":
+                    metode.llistaInscripcio(alumnes, inscripcions, activitats);
+                    break;
                 case "0":
                     salir = true;
                     break;
@@ -64,13 +67,7 @@ namespace _20232401_metodes_PortAventura
         {
             Console.WriteLine("1. Afegir Alumnes");
             Console.WriteLine("2. Afegir Inscripcions");
-            Console.WriteLine("3. ");
-            Console.WriteLine("4. ");
-            Console.WriteLine("5. ");
-            Console.WriteLine("6. ");
-            Console.WriteLine("7. ");
-            Console.WriteLine("8. ");
-            Console.WriteLine("9. ");
+            Console.WriteLine("3. Llistar inscripcions");
             Console.WriteLine("0. Sortir");
         }
         string[,] DadesAlumnes()

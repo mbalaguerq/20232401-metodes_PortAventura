@@ -45,119 +45,123 @@ namespace _20232401_metodes_PortAventura
                 }
             }
             Console.WriteLine();
-
         }
-
 
         public void novaInscripció(String[,] inscripcions, String[,] alumnes, String[,] activitats)//opció 2
         {
-            string nif, nom;
+            /* 2.Añadir inscripción(7 puntos)
+            - Se pidiera el nif del alumno que se quiere inscribir a una salida
+            -se comprobará si existe en el array de «alumnos», en caso afirmativo mostrará el nombre del alumno, (*)
+            -Después se pedirá el código de la actividad a la que se quiere apuntar, se comprobará si esa actividad existe,
+            en caso afirmativo mostrará el nombre de la actividad y de lo contrario mostrará un mensaje indicando que 
+            la actividad no existe.
+            - Si el Nif y la actividad existen, comprobar si este alumno con esta actividad ya existe en el array inscripciones,
+            en caso afirmativo debe mostrar un mensaje indicando que este alumno ya está inscrito en esta actividad
+            - de lo contrario el programa debe preguntar si los datos son correctos, en caso afirmativo añadir en el array
+            inscripciones una fila con el Nif y Actividad.*/
+
+            string nif;
             int fila, filaLliure;
             string opcio, acti, resposta;
-            bool actiExist = false;
+
 
             nif = DemanaAlumne();
             fila = existsNif(nif, alumnes);
-            do
+
+            Console.WriteLine();
+
+
+            if (fila == REGISTRE_INEXISTENT)//si l'alumne no existeix
             {
-                if (fila != REGISTRE_INEXISTENT)//si l'alumne existeix
+                Console.WriteLine("Alumne no registrat");
+                afegirAlumnes(alumnes);
+            }
+
+
+            else//si l'alumne existeix
+            {
+                Console.WriteLine("Alumne: " + alumnes[fila, ALU_NOM]);
+                Console.WriteLine("Introdueix el codi de la activitat a realitzar: ");
+                Console.WriteLine("1. Sortida a esquiar");
+                Console.WriteLine("2. Sortida a Port Aventura");
+                Console.WriteLine("3. Sortida a Fira Games World");
+                Console.WriteLine("4. Sortida a Catalunya en Miniatura");
+                Console.WriteLine("5. Sortida al parc Güell");
+                Console.WriteLine("6. Sortida Visita Andorra en un dia");
+
+                opcio = (Console.ReadLine());
+                Console.WriteLine();
+                acti = GetActivitat(activitats, opcio);
+
+                if (!acti.Equals(""))//si la activitat a realitzar existeix
                 {
-                    Console.WriteLine("Alumne: " + alumnes[fila, ALU_NOM]);
-                    Console.WriteLine("Introdueix el codi de la activitat a realitzar: ");
-                    Console.WriteLine("1. Sortida a esquiar");
-                    Console.WriteLine("2. Sortida a Port Aventura");
-                    Console.WriteLine("3. Sortida a Fira Games World");
-                    Console.WriteLine("4. Sortida a Catalunya en Miniatura");
-                    Console.WriteLine("5. Sortida al parc Güell");
-                    Console.WriteLine("6. Sortida Visita Andorra en un dia");
+                    Console.WriteLine("Activitat disponible: " + acti);
 
-                    opcio = (Console.ReadLine());
-                    Console.WriteLine();
-                    acti = GetActivitat(activitats, opcio);
+                    fila = 0;
+                    fila = GetInscripcions(inscripcions, nif);
 
-                    if (!acti.Equals(""))//si la activitat a realitzar existeix
+                    if (fila != REGISTRE_INEXISTENT)//Si ja està registrat a activitats
                     {
-                        Console.WriteLine("Activitat disponible: " + acti);
+                        Console.WriteLine("Aquest alumne ja està inscrit a l'activitat " + activitats[fila, INS_ACTI]);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Indiqui si les dades són correctes: ");
+                        Console.WriteLine("DNI: " + nif);
+                        Console.WriteLine("Activitat: " + acti);
+                        Console.Write("S/N :");
+                        resposta = Console.ReadLine();
+                        resposta.ToLower();
 
-                        fila = 0;
-                        fila = GetInscripcions(inscripcions, nif);
-
-                        if (fila != REGISTRE_INEXISTENT)//Si ja està registrat a activitats
+                        if (resposta == "s")//si les dades son correctes
                         {
-                            Console.WriteLine("Aquest alumne ja està inscrit a l'activitat " + activitats[fila, INS_ACTI]);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Indiqui si les dades són correctes: ");
-                            Console.WriteLine("DNI: " + nif);
-                            Console.WriteLine("Activitat: " + acti);
-                            Console.Write("S/N :");
-                            resposta = Console.ReadLine();
-                            resposta.ToLower();
-
-                            if (resposta == "s")//si les dades son correctes
+                            filaLliure = 0;
+                            filaLliure = GetNewFilaInscripcions(inscripcions);
                             {
-                                filaLliure = 0;
-                                filaLliure = GetNewFilaInscripcions(inscripcions);
+                                if (filaLliure != REGISTRE_INEXISTENT) //Si hi ha una fila lliure
                                 {
-                                    if (filaLliure != REGISTRE_INEXISTENT) //Si hi ha una fila lliure
-                                    {
-                                        nif = inscripcions[filaLliure, INS_NOM];
-                                        acti = inscripcions[filaLliure, INS_ACTI];
+                                    nif = inscripcions[filaLliure, INS_NOM];
+                                    acti = inscripcions[filaLliure, INS_ACTI];
 
-                                        //llistem array activitats
-                                        for (int i = 0; i < inscripcions.GetLength(0); i++)
+                                    //llistem array activitats
+                                    for (int i = 0; i < inscripcions.GetLength(0); i++)
+                                    {
+                                        for (int j = 0; j < inscripcions.GetLength(1); j++)
                                         {
-                                            for (int j = 0; j < inscripcions.GetLength(1); j++)
-                                            {
-                                                Console.Write(inscripcions[i, j] + "\t");
-                                            }
+                                            Console.Write(inscripcions[i, j] + "\t");
                                         }
                                     }
-                                    else//Si no hi ha fila lliurel'array està plè
-                                    {
-                                        Console.WriteLine("Incidència. Avisi al tècnic");
-                                        Console.WriteLine();
-                                    }
+                                }
+                                else//Si no hi ha fila lliurel'array està plè
+                                {
+                                    Console.WriteLine("Incidència. Avisi al tècnic");
+                                    Console.WriteLine();
                                 }
                             }
-
                         }
-                        actiExist = true;//això no se si va aquí
+
                     }
-                    else //si la activitat no existeix
-                    {
-                        Console.WriteLine("Activitat no disponible ");
-                        Console.WriteLine();
-                    }
+
                 }
-                else//si l'alumne no existeix
+                else //si la activitat no existeix
                 {
-                    filaLliure = 0;
-                    filaLliure = GetNewFilaAlumnes(alumnes);
-                    {
-                        if (filaLliure != REGISTRE_INEXISTENT) //Si hi ha una fila lliure
-                        {
-                            nif = alumnes[filaLliure, ALU_NIF];
-                            nom = alumnes[filaLliure, ALU_NOM];
-
-                        }
-                    }
+                    Console.WriteLine("Activitat no disponible ");
+                    Console.WriteLine();
                 }
+            }
 
-            } while (!actiExist);
         }
 
-        /* 2.Añadir inscripción(7 puntos)
-        - Se pidiera el nif del alumno que se quiere inscribir a una salida
-        -se comprobará si existe en el array de «alumnos», en caso afirmativo mostrará el nombre del alumno, (*)
-        -Después se pedirá el código de la actividad a la que se quiere apuntar, se comprobará si esa actividad existe,
-        en caso afirmativo mostrará el nombre de la actividad y de lo contrario mostrará un mensaje indicando que la actividad
-        no existe.
-        - Si el Nif y la actividad existen, comprobar si este alumno con esta actividad ya existe en el array inscripciones,
-        en caso afirmativo debe mostrar un mensaje indicando que este alumno ya está inscrito en esta actividad
-        -de lo contrario el programa debe preguntar si los datos son correctos, en caso afirmativo añadir en el array
-        inscripciones una fila con el Nif y Actividad.*/
+
+        public void llistaInscripcio(String[,] inscripcions, String[,] alumnes, String[,] activitats)//opció 3
+        {
+
+        }
+
+        //3. Lista de inscripciones de una actividad (1,5 puntos)
+        //Debe pedir el código de una actividad, comprobar si existe en el array "actividades", 
+        //  en caso afirmativo debe mostrar el nombre de la actividad y a continuación mostrar el nif y el nombre 
+        //de todos los alumnos inscritos en la actividad
 
         public string GetActivitat(String[,] activitats, string opcio)
         {
