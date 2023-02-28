@@ -47,7 +47,7 @@ namespace _20232401_metodes_PortAventura
             Console.WriteLine();
         }
 
-        public void novaInscripció(String[,] inscripcions, String[,] alumnes, String[,] activitats)//opció 2
+        public void novaInscripció(String[,] alumnes, String[,] inscripcions, String[,] activitats)//opció 2
         {
             /* 2.Añadir inscripción(7 puntos)
             - Se pidiera el nif del alumno que se quiere inscribir a una salida
@@ -61,26 +61,29 @@ namespace _20232401_metodes_PortAventura
             inscripciones una fila con el Nif y Actividad.*/
 
             string nif;
-            int fila, filaLliure;
+            int fila;
+            int filalliure = 0;
             string opcio, acti, resposta;
 
 
             nif = DemanaAlumne();
             fila = existsNif(nif, alumnes);
-
+            bool afegit = false;
             Console.WriteLine();
 
-
-            if (fila == REGISTRE_INEXISTENT)//si l'alumne no existeix
+            do
             {
-                Console.WriteLine("Alumne no registrat");
-                afegirAlumnes(alumnes);
-            }
+                if (fila == REGISTRE_INEXISTENT)//si l'alumne no existeix
+                {
+                    Console.WriteLine("Alumne no registrat");
+                    afegirAlumnes(alumnes);
+                    afegit=true;                    
+                    filalliure = GetNewFilaAlumnes(alumnes);
 
-
-            else//si l'alumne existeix
-            {
-                Console.WriteLine("Alumne: " + alumnes[fila, ALU_NOM]);
+                }
+            } while (!afegit);
+                   
+                Console.WriteLine("Alumne: " + alumnes[filalliure, ALU_NOM]);
                 Console.WriteLine("Introdueix el codi de la activitat a realitzar: ");
                 Console.WriteLine("1. Sortida a esquiar");
                 Console.WriteLine("2. Sortida a Port Aventura");
@@ -115,13 +118,13 @@ namespace _20232401_metodes_PortAventura
 
                         if (resposta == "s")//si les dades son correctes
                         {
-                            filaLliure = 0;
-                            filaLliure = GetNewFilaInscripcions(inscripcions);
+                            filalliure = 0;
+                            filalliure = GetNewFilaInscripcions(inscripcions);
                             {
-                                if (filaLliure != REGISTRE_INEXISTENT) //Si hi ha una fila lliure
+                                if (filalliure != REGISTRE_INEXISTENT) //Si hi ha una fila lliure
                                 {
-                                    nif = inscripcions[filaLliure, INS_NOM];
-                                    acti = inscripcions[filaLliure, INS_ACTI];
+                                    nif = inscripcions[filalliure, INS_NOM];
+                                    acti = inscripcions[filalliure, INS_ACTI];
 
                                     //llistem array activitats
                                     for (int i = 0; i < inscripcions.GetLength(0); i++)
@@ -148,7 +151,7 @@ namespace _20232401_metodes_PortAventura
                     Console.WriteLine("Activitat no disponible ");
                     Console.WriteLine();
                 }
-            }
+            
 
         }
 
@@ -195,7 +198,8 @@ namespace _20232401_metodes_PortAventura
 
             while (i < inscripcions.GetLength(0) & !encontrado)
             {
-                if (inscripcions[i, INS_NOM].Equals(nif))
+                //S'ha de preguntar també que no equivalgui a un null, sino ens donarà error
+                if (inscripcions[i,INS_NOM]!=null && inscripcions[i, INS_NOM].Equals(nif))
                 {
                     encontrado = true;
                 }

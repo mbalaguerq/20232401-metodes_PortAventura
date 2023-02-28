@@ -21,7 +21,6 @@ namespace _20232401_metodes_PortAventura
 
             bool salir = false;
             string opcio;
-
             do
             {
                 mostrarMenu();
@@ -62,7 +61,6 @@ namespace _20232401_metodes_PortAventura
             }
             return salir;
         }
-
         void mostrarMenu()
         {
             Console.WriteLine("1. Afegir Alumnes");
