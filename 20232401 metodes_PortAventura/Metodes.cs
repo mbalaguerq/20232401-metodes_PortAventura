@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Cache;
 using System.Net.Sockets;
 using System.Runtime.Remoting.Channels;
 using System.Text;
@@ -84,7 +85,7 @@ namespace _20232401_metodes_PortAventura
                 }
             } while (!afegit);
                    
-                Console.WriteLine("Alumne: " + alumnes[filalliure, ALU_NOM]);
+            
                 Console.WriteLine("Introdueix el codi de la activitat a realitzar: ");
                 Console.WriteLine("1. Sortida a esquiar");
                 Console.WriteLine("2. Sortida a Port Aventura");
@@ -127,12 +128,14 @@ namespace _20232401_metodes_PortAventura
                                     nif = inscripcions[filalliure, INS_NOM];
                                     acti = inscripcions[filalliure, INS_ACTI];
 
-                                    //llistem array activitats
+                                //llistem array activitats
+                                Console.WriteLine("Codi activitat" +  "\tNom activitat");
+
                                     for (int i = 0; i < inscripcions.GetLength(0); i++)
                                     {
                                         for (int j = 0; j < inscripcions.GetLength(1); j++)
                                         {
-                                            Console.Write(inscripcions[i, j] + "\t");
+                                            Console.Write(inscripcions[i, j]);
                                         }
                                     }
                                 }
@@ -174,7 +177,7 @@ namespace _20232401_metodes_PortAventura
 
             while (i < activitats.GetLength(0) & !encontrado)
             {
-                if (activitats[i, NUM_ACT].Equals(opcio))
+                if (activitats[i, NOM_ACT].Equals(opcio))
                 {
                     encontrado = true;
                 }
@@ -189,7 +192,7 @@ namespace _20232401_metodes_PortAventura
             }
             else
             {
-                return null;
+                return ("");
             }
         }//busca act Array act retonra act
         public int GetInscripcions(String[,] inscripcions, string nif)
@@ -255,7 +258,7 @@ namespace _20232401_metodes_PortAventura
         {
             bool encontrado = false;
             int filaLliure = 0;
-            while (filaLliure < alumnes.GetLength(0) & !encontrado)
+            while (filaLliure < alumnes.GetLength(0) && !encontrado)
             {
                 if (alumnes[filaLliure, ALU_NIF] == null)
                 {
@@ -341,6 +344,7 @@ namespace _20232401_metodes_PortAventura
         const int ALU_NIF = 0;
         const int ALU_NOM = 1;
         const int ACT = 1;
+        const int NOM_ACT = 1;
         const int NUM_ACT = 0;
         const int INS_NOM = 0;
         const int INS_ACTI = 1;
