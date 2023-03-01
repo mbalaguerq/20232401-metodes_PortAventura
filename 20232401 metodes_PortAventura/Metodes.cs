@@ -76,7 +76,8 @@ namespace _20232401_metodes_PortAventura
                 if (fila == REGISTRE_INEXISTENT)//si l'alumne no existeix
                 {
                     Console.WriteLine("Alumne no registrat");
-                    afegirAlumnes(alumnes);
+                    
+                    afegirAlumnes2(alumnes, nif);
                     afegit=true;                    
                     filalliure = GetNewFilaAlumnes(alumnes);
 
@@ -298,6 +299,43 @@ namespace _20232401_metodes_PortAventura
                 return REGISTRE_INEXISTENT;
             } //busca fila lliure Array Iniscripcions Retorna fila lliure
         }
+
+        public void afegirAlumnes2(String[,] alumnes, string  nif) //Opcio1
+        {
+           
+            string nom;
+            int fila;
+            int filalliure;
+
+            
+            Console.Write("Nom: ");
+            nom = Console.ReadLine();
+            fila = existsNif(nif, alumnes);
+            filalliure = GetNewFilaAlumnes(alumnes);
+
+            if (fila != REGISTRE_INEXISTENT)
+            {
+                Console.WriteLine("L'alumne ja està registrat. ");
+                Console.WriteLine("Alumne" + alumnes[fila, ALU_NOM]);
+                Console.WriteLine();
+            }
+            else
+            {
+                alumnes[filalliure, ALU_NIF] = nif;
+                alumnes[filalliure, ALU_NOM] = nom;
+            }
+            Console.WriteLine("NIF\t\t " + "NOM\t");
+
+            for (int i = 0; i < alumnes.GetLength(0); i++)
+            {
+                if (alumnes[i, ALU_NIF] != null)
+                {
+                    Console.Write(alumnes[i, ALU_NIF] + "\t" + alumnes[i, ALU_NOM] + "\n");
+                }
+            }
+            Console.WriteLine();
+        }
+
 
         const int REGISTRE_INEXISTENT = -1;
         const int ALU_NIF = 0;
